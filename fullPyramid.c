@@ -10,7 +10,7 @@ int main()
     scanf("%d", &rows);
     for (traverse = rows; traverse-- > 0; star += 2, printf("\n"))
     {
-        for (space = 1; space++ < traverse; printf(" "))
+        for (space = 0; space++ < traverse; printf(" "))
             ;
         for (print = 0; print++ <= star; printf("*"))
             ;
