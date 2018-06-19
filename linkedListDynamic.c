@@ -19,7 +19,7 @@ list create()
     return head;
 }
 
-void insfir(list l, int x)
+void insertFirst(list l, int x)
 {
     list temp;
     temp = (list)malloc(sizeof(struct node));
@@ -28,68 +28,68 @@ void insfir(list l, int x)
     l->next = temp;
 }
 
-void insertlast(list l, int q)
+void insertLast(list l, int val)
 {
-    list p = l, temp;
-    while (p->next != NULL)
-        p = p->next;
+    list temp;
+    while (l->next != NULL)
+        l = l->next;
     temp = (list)malloc(sizeof(struct node));
-    temp->value = q;
+    temp->value = val;
     temp->next = NULL;
-    p->next = temp;
+    l->next = temp;
 }
 
-void insbef(list l, int q, int y)
+void insertBefore(list l, int val, int key)
 {
-    list p = l, temp;
-    while (p->next->value != y && p->next != NULL)
-        p = p->next;
-    if (p->next->value == y)
+    list  temp;
+    while (l->next->value != key && l->next != NULL)
+        l = l->next;
+    if (l->next->value == key)
     {
         temp = (list)malloc(sizeof(struct node));
-        temp->value = q;
-        temp->next = p->next;
-        p->next = temp;
+        temp->value = val;
+        temp->next = l->next;
+        l->next = temp;
     }
 }
 
-void insaft(list l, int q, int y)
+void insertAfter(list l, int val, int key)
 {
-    list p = l, temp;
-    while (p->value != y && p->next != NULL)
-        p = p->next;
-    if (p->value == y)
+    list  temp;
+    while (l->value != key && l->next != NULL)
+        l = l->next;
+    if (l->value == key)
     {
         temp = (list)malloc(sizeof(struct node));
-        temp->value = q;
-        temp->next = p->next;
-        p->next = temp;
+        temp->value = val;
+        temp->next = l->next;
+        l->next = temp;
     }
     else
         printf("\n Element not found");
 }
 
-void inspos(list l, int q, int k)
+void insertPosition(list l, int val, int position)
 {
-    list p = l, temp;
-    int c = 0;
-    while (c != k - 1 && p->next != NULL)
+    list  temp;
+    int currentPosition = 0;
+    while (currentPosition != position - 1 && l->next != NULL)
     {
-        p = p->next;
-        c++;
+        l = l->next;
+        currentPosition++;
     }
-    if (c == k - 1)
+    if (currentPosition == position - 1)
     {
         temp = (list)malloc(sizeof(struct node));
-        temp->value = q;
-        temp->next = p->next;
-        p->next = temp;
+        temp->value = val;
+        temp->next = l->next;
+        l->next = temp;
     }
     else
         printf("\n Element not found");
 }
 
-void delfir(list l)
+void deleteFirst(list l)
 {
     list temp;
     temp = l->next;
@@ -98,60 +98,62 @@ void delfir(list l)
     else
         l->next = temp->next;
     free(temp);
+    printf("\nFirst element deleted");
 }
 
-void delmid(list l, int q)
+void deleteMid(list l, int val)
 {
-    list p = l, temp;
-    while ((p->next->value != q) && (p->next != NULL))
-        p = p->next;
-    if (p->next->value == q)
+    list  temp;
+    while ((l->next->value != val) && (l->next != NULL))
+        l = l->next;
+    if (l->next->value == val)
     {
-        temp = p->next;
-        p->next = temp->next;
+        temp = l->next;
+        l->next = temp->next;
         free(temp);
     }
+    printf("\nElement %d deleted",val);
 }
 
-void dellast(list l)
+void deleteLast(list l)
 {
-    list p = l, temp;
-    while (p->next->next != NULL)
-        p = p->next;
-    temp = p->next;
-    p->next = NULL;
+    list  temp;
+    while (l->next->next != NULL)
+        l = l->next;
+    temp = l->next;
+    l->next = NULL;
     free(temp);
+    printf("\nLast Element Deleted...");
 }
 
 int search(list l, int k)
 {
-    list p = l;
-    while (p != NULL)
+    while (l != NULL)
     {
-        if (p->value == k)
+        if (l->value == k)
             return 1;
-        p = p->next;
+        l = l->next;
     }
     return 0;
 }
 
-void display(list l)
+void print(list l)
 {
-    list p = l->next;
-    if (p == NULL)
+    l=l->next;
+    if (l == NULL)
         printf("\n Element not found");
     else
     {
-        printf("\n Elements in the list are...");
-        while (p != NULL)
+        printf("\nElements in the list are...");
+        while ( l!= NULL)
         {
-            printf("%d ", p->value);
-            p = p->next;
+            printf("%d ", l->value);
+            l = l->next;
         }
     }
 }
 
-main()
+int main()
 {
     list l;
     int option, q, q1, q2, q3, q4, q5, x, y, y1, k, z, w, u = 0, w1;
@@ -168,7 +170,7 @@ main()
         while (u != w)
         {
             scanf("%d", &w1);
-            insertlast(l, w1);
+            insertLast(l, w1);
             u++;
         }
     }
@@ -182,7 +184,8 @@ main()
         case 1:
             printf("\nEnter the value to be  inserted:");
             scanf("%d", &x);
-            insfir(l, x);
+            insertFirst(l, x);
+            print(l);
             printf("\n-----------------------------------------------");
             break;
         case 2:
@@ -190,7 +193,8 @@ main()
             scanf("%d", &q);
             printf("\nEnter the value in the list:");
             scanf("%d", &y);
-            insbef(l, q, y);
+            insertBefore(l, q, y);
+            print(l);
             printf("\n------------------------------------------------");
             break;
         case 3:
@@ -198,7 +202,8 @@ main()
             scanf("%d", &q1);
             printf("\nEnter the value in the list:");
             scanf("%d", &y1);
-            insaft(l, q1, y1);
+            insertAfter(l, q1, y1);
+            print(l);
             printf("\n-------------------------------------------------");
             break;
         case 4:
@@ -206,41 +211,45 @@ main()
             scanf("%d", &q2);
             printf("\nEnter the position:");
             scanf("%d", &k);
-            inspos(l, q2, k);
+            insertPosition(l, q2, k);
+            print(l);
             printf("\n-------------------------------------------------");
             break;
         case 5:
             printf("\nEnter the new element to be inserted:");
             scanf("%d", &q3);
-            insertlast(l, q3);
+            insertLast(l, q3);
+            print(l);
             printf("\n-------------------------------------------------");
             break;
         case 6:
-            delfir(l);
+            deleteFirst(l);
+            print(l);
             printf("\n--------------------------------------------------");
             break;
         case 7:
             printf("\nEnter the element to be deleted:");
             scanf("%d", &q4);
-            delmid(l, q4);
+            deleteMid(l, q4);
+            print(l);
             printf("\n---------------------------------------------------");
             break;
         case 8:
-            dellast(l);
+            deleteLast(l);
+            print(l);
             printf("\n---------------------------------------------------");
             break;
         case 9:
             printf("\nEnter the value searched:");
             scanf("%d", &q5);
-            z = search(l, q5);
-            if (z == 1)
+            if (search(l,q5))
                 printf("\nElement found");
             else
                 printf("\nElement not found");
             printf("\n---------------------------------------------------");
             break;
         case 10:
-            display(l);
+            print(l);
             printf("\n---------------------------------------------------");
             break;
         default:
