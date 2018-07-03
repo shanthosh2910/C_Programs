@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 struct node
 {
@@ -67,6 +68,50 @@ int search(tree t, int key)
         search(t->rightChild, key);
 }
 
+tree findMinimum(tree t)
+{
+    while (t->leftChild != NULL)
+        t = t->leftChild;
+    return t;
+}
+
+tree delete (tree t, int key)
+{
+    if (t == NULL)
+        return NULL;
+    if (key < t->data)
+        t->leftChild = delete (t->leftChild, key);
+    else if (key > t->data)
+        t->rightChild = delete (t->rightChild, key);
+    else
+    {
+        if (t->leftChild == NULL && t->rightChild == NULL)
+        {
+            free(t);
+            // t = NULL;
+        }
+        else if (t->leftChild == NULL)
+        {
+            tree temp = t;
+            t = t->rightChild;
+            free(temp);
+        }
+        else if (t->rightChild == NULL)
+        {
+            tree temp = t;
+            t = t->leftChild;
+            free(temp);
+        }
+        else
+        {
+            tree temp = findMinimum(t->rightChild);
+            t->data = temp->data;
+            t->rightChild = delete (t->rightChild, temp->data);
+        }
+    }
+    return t;
+}
+
 int main()
 {
     tree t;
@@ -81,13 +126,13 @@ int main()
     }
     do
     {
-        printf("\n\n\t\t LIST OPERATION\n\t\t----------------------\n\t\t1.Insert\n\t\t2.InOrder traversal\n\t\t3.PreOrder traversal\n\t\t4.PostOrder traversal\n\t\t5.Search\n\t\t0.Exit\n\t\t-----------------------\n\t\tEnter your option:");
+        printf("\n\n\t\t LIST OPERATION\n\t\t----------------------\n\t\t1.Insert\n\t\t2.InOrder traversal\n\t\t3.PreOrder traversal\n\t\t4.PostOrder traversal\n\t\t5.Search\n\t\t6.Delete\n\t\t0.Exit\n\t\t-----------------------\n\t\tEnter your option:");
         scanf("%d", &option);
-        printf("\n\t\t-------------------------");
+        printf("\n\t\t-------------------------\n");
         switch (option)
         {
         case 1:
-            printf("Value to be inserted.....");
+            printf("\nValue to be inserted.....");
             scanf("%d", &value);
             insert(t, value);
             printf("\n-----------------------------------------------");
@@ -105,7 +150,7 @@ int main()
             printf("\n-----------------------------------------------");
             break;
         case 5:
-            printf("Value to be searched....");
+            printf("\nValue to be searched....");
             scanf("%d", &value);
             if (search(t, value))
                 printf("\nFound");
@@ -113,9 +158,13 @@ int main()
                 printf("\nNot Found");
             printf("\n-----------------------------------------------");
             break;
+        case 6:
+            printf("\nValue to be deleted....");
+            scanf("%d", &value);
+            delete(t,value);
+            break;
         default:
             printf("\n...Thank you...");
-            printf("\n-----------------------------------------------");
         }
     } while (option != 0);
 }
