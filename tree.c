@@ -88,7 +88,7 @@ tree delete (tree t, int key)
         if (t->leftChild == NULL && t->rightChild == NULL)
         {
             free(t);
-            // t = NULL;
+            t = NULL;
         }
         else if (t->leftChild == NULL)
         {
