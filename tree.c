@@ -55,11 +55,23 @@ void postOrder(tree t)
     printf("%d ", t->data);
 }
 
+int search(tree t, int key)
+{
+    if (t == NULL)
+        return 0;
+    if (t->data == key)
+        return 1;
+    if (key < t->data)
+        search(t->leftChild, key);
+    if (key > t->data)
+        search(t->rightChild, key);
+}
+
 int main()
 {
     tree t;
     t = NULL;
-    int num, option, value;
+    int num, option, value, found;
     printf("Number of known data....");
     scanf("%d", &num);
     for (int i = 0; i < num; i++)
@@ -69,14 +81,14 @@ int main()
     }
     do
     {
-        printf("\n\n\t\t LIST OPERATION\n\t\t----------------------\n\t\t1.Insert\n\t\t2.InOrder traversal\n\t\t3.PreOrder traversal\n\t\t4.PostOrder traversal\n\t\t0.Exit\n\t\t-----------------------\n\t\tEnter your option:");
+        printf("\n\n\t\t LIST OPERATION\n\t\t----------------------\n\t\t1.Insert\n\t\t2.InOrder traversal\n\t\t3.PreOrder traversal\n\t\t4.PostOrder traversal\n\t\t5.Search\n\t\t0.Exit\n\t\t-----------------------\n\t\tEnter your option:");
         scanf("%d", &option);
         printf("\n\t\t-------------------------");
         switch (option)
         {
         case 1:
             printf("Value to be inserted.....");
-            scanf("%d",&value);
+            scanf("%d", &value);
             insert(t, value);
             printf("\n-----------------------------------------------");
             break;
@@ -90,6 +102,15 @@ int main()
             break;
         case 4:
             postOrder(t);
+            printf("\n-----------------------------------------------");
+            break;
+        case 5:
+            printf("Value to be searched....");
+            scanf("%d", &value);
+            if (search(t, value))
+                printf("\nFound");
+            else
+                printf("\nNot Found");
             printf("\n-----------------------------------------------");
             break;
         default:
