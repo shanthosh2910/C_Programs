@@ -10,7 +10,7 @@ int main()
     char sets[10][5] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
     int strCtr, posCtr, print, passCtr;
     char *ptr;
-    char pass[] = "sudharsan";
+    char pass[] = "shanthosh";
     printf("%s\n", pass);
     for (passCtr = 0; pass[passCtr]; passCtr++)
     {
