@@ -114,7 +114,7 @@ int main()
             printf("\n-----------------------------------------------");
             break;
         default:
-            printf("...Thank you...");
+            printf("\n...Thank you...");
             printf("\n-----------------------------------------------");
         }
     } while (option != 0);
