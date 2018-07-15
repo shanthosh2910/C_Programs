@@ -1,3 +1,14 @@
+// Print all the subarrays of the given array
+// Input:
+// 1 2 3
+// Output:
+// 1
+// 1 2
+// 1 2 3
+// 2 
+// 2 3
+// 3 
+
 #include <stdio.h>
 int main()
 {
