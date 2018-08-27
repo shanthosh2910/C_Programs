@@ -13,27 +13,6 @@ void DFS(int x)
     }
 }
 
-void BFS(int x, int n)
-{
-    int front = 0, rear = 0, q[100];
-    visit[x] = 1;
-    printf("%d", x);
-    for (i = 0; i < n; i++)
-    {
-        if (a[x][i] == 1 && visit[i] == 0)
-        {
-            q[rear] = i;
-            rear++;
-            visit[i] = 1;
-        }
-    }
-    while (rear != n - 2)
-    {
-        BFS(q[front], n);
-        front++;
-    }
-}
-
 main()
 {
 
@@ -48,9 +27,5 @@ main()
     }
     for (i = 0; i < n; i++)
         visit[i] = 0;
-    for (i = 0; i < n; i++)
-        if (visit[i] != 1)
-        {
-            BFS(i, n);
-        }
+    DFS(0);
 }
